@@ -1,0 +1,20 @@
+whole_body_kinematic_controller:
+  type: pal_wbc/WholeBodyControlKinematicController
+  
+  useFT: False
+  useIMU: False
+  dt: 0.005
+  floating_base: FixedBase
+  formulation: velocity
+  stack_configuration: rrbot_stack
+  solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
+
+  use_home_posture: False
+
+  default_configuration:
+    joint1: 1.7
+    joint2: 0.5
+
+  position_joints:
+    - joint1
+    - joint2

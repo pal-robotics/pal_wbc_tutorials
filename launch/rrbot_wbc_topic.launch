@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+<launch>
+
+  <arg name="debug" default="false"/>
+  <arg name="valgrind" default="false"/>
+  <arg name="stack" default="rrbot_stack"/>
+  <arg name="spawn" default="true"/>
+
+  <include file="$(find pal_wbc_tutorial)/launch/upload_rrbot.launch" />
+
+  <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="valgrind" value="$(arg valgrind)"/>
+    <arg name="parameters" value="--cycle_time 0.001"/> 
+  </include>
+
+  <!-- Configure wbc -->
+  <rosparam command="load"
+    file="$(find pal_wbc_tutorial)/config/$(arg stack).yaml" />
+
+ <!-- Configure local joint control -->
+  <rosparam command="load"
+    file="$(find pal_wbc_tutorial)/config/rrbot_position_joints.yaml" 
+    ns="whole_body_kinematic_controller"/>
+
+  <!-- Spawn controller -->
+  <group if="$(arg spawn)">
+    <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
+  </group>
+
+  <!-- Pushing the reference task -->
+  <node name="push_reference_pos_task_topic" pkg="pal_wbc_tutorial" type="push_reference_pos_task_topic" />
+
+  <!-- Running Joint State Controller -->
+  <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
+
+  <!-- Show in Rviz   -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorial)/launch/rrbot_rviz.rviz"/>
+
+</launch>
+

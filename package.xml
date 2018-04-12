@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+
+  <name>pal_wbc_tutorial</name>
+  <version>0.0.0</version>
+  <description>The pal_wbc_tutorial package</description>
+  <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+
+  <depend>pal_kinematic_simulator</depend>
+  <depend>pal_wbc_controller</depend>
+  <depend>pal_wbc_utils</depend>
+  <depend>pluginlib</depend>
+  <depend>roscpp</depend>
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <pal_wbc_controller plugin="${prefix}/pal_wbc_tutorial_plugins.xml" />
+  </export>
+</package>

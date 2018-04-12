@@ -1,0 +1,15 @@
+<library path="lib/libpal_wbc_tutorial">
+
+  <class name="rrbot_stack" type="rrbot_stack" base_class_type="StackConfigurationKinematic">
+    <description>
+      Default stack for tiago as a fixed base
+    </description>
+  </class>
+
+  <class name="pal_wbc/ReferenceKinematicTaskRRBot" type="pal_wbc::ReferenceKinematicTaskRRBot" base_class_type="pal_wbc::TaskAbstract">
+    <description>
+      Reference Kinematic Task All Joints of RRBot
+    </description>
+  </class>
+
+</library>

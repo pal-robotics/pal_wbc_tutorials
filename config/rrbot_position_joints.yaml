@@ -1,0 +1,5 @@
+joints:        
+  joint1:
+    type: pal_local_joint_control::DirectPositionControl
+  joint2:
+    type: pal_local_joint_control::DirectPositionControl
