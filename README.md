@@ -11,8 +11,8 @@ To launch the robot to control in dynamic reconfigure mode, launch:
 roslaunch pal_wbc_tutorial rrbot_wbc_dynamic_reconfigure.launch
 ```
 
-and, to control the robot using rostopics, launch:
+and, to control the robot using rostopic, launch:
 ```bash
-# To launch rrbot to be controlled by rqt_reconfigure
+# To launch rrbot to be controlled by rostopic
 roslaunch pal_wbc_tutorial rrbot_wbc_topic.launch
 ```
