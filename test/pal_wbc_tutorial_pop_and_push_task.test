@@ -30,7 +30,7 @@
   </group>
 
   <!-- Running Joint State Controller -->
-  <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
+  <include file="$(find joint_state_controller)/joint_state_controller.launch"/>
 
   <test test-name="pal_wbc_tutorial_pop_and_push_task" pkg="pal_wbc_tutorial" type="pal_wbc_tutorial_pop_and_push_task" time-limit="120.0"/>
 

@@ -32,7 +32,7 @@
   <node name="push_reference_pos_task_dynamic_reconfigure" pkg="pal_wbc_tutorial" type="push_reference_pos_task_dynamic_reconfigure" />
 
   <!-- Running Joint State Controller -->
-  <include file="$(find tiago_controller_configuration)/launch/joint_state_controller.launch"/>
+  <include file="$(find joint_state_controller)/joint_state_controller.launch"/>
 
   <!-- Running rqt_reconfigure for the user to control/configure the joint angles -->
   <node name="joints_angle_dynamic_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
