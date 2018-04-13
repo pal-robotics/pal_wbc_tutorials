@@ -14,6 +14,7 @@
   <depend>pal_wbc_controller</depend>
   <depend>pal_wbc_utils</depend>
   <depend>pluginlib</depend>
+  <depend>joint_state_controller</depend>
   <depend>roscpp</depend>
 
   <!-- The export tag contains other, unspecified, tags -->

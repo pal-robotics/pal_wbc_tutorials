@@ -1,40 +1,14 @@
 <!-- -->
 <launch>
 
-  <arg name="debug" default="false"/>
-  <arg name="valgrind" default="false"/>
-  <arg name="stack" default="rrbot_stack"/>
-  <arg name="spawn" default="true"/>
-
   <include file="$(find pal_wbc_tutorial)/launch/upload_rrbot.launch" />
 
-  <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
-    <arg name="debug" value="$(arg debug)"/>
-    <arg name="valgrind" value="$(arg valgrind)"/>
-    <arg name="parameters" value="--cycle_time 0.001"/> 
-  </include>
-
-  <!-- Configure wbc -->
-  <rosparam command="load"
-    file="$(find pal_wbc_tutorial)/config/$(arg stack).yaml" />
-
- <!-- Configure local joint control -->
-  <rosparam command="load"
-    file="$(find pal_wbc_tutorial)/config/rrbot_position_joints.yaml" 
-    ns="whole_body_kinematic_controller"/>
-
-  <!-- Spawn controller -->
-  <group if="$(arg spawn)">
-    <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
-
-  </group>
-
-  <!-- Running Joint State Controller -->
-  <include file="$(find joint_state_controller)/joint_state_controller.launch"/>
+  <!-- Configuring Controllers -->
+  <include file="$(find pal_wbc_tutorial)/launch/controllers_configuration.launch"/>
 
   <test test-name="pal_wbc_tutorial_topic_test" pkg="pal_wbc_tutorial" type="pal_wbc_tutorial_topic_test" time-limit="120.0"/>
 
-  <!-- Show in Rviz   -->
+  <!-- Show in Rviz -->
   <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorial)/launch/rrbot_rviz.rviz"/>-->
 
 </launch>

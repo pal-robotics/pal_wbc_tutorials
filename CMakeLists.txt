@@ -20,13 +20,14 @@ find_package(catkin REQUIRED COMPONENTS
   pal_wbc_controller
   pal_wbc_utils
   pluginlib
+  joint_state_controller
   roscpp
 )
 
 catkin_package(
   INCLUDE_DIRS include
   LIBRARIES ${PROJECT_NAME}
-  CATKIN_DEPENDS pal_kinematic_simulator pal_wbc_controller pal_wbc_utils pluginlib roscpp
+  CATKIN_DEPENDS pal_kinematic_simulator pal_wbc_controller pal_wbc_utils pluginlib joint_state_controller roscpp
   DEPENDS system_lib
 )
 
