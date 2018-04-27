@@ -48,6 +48,16 @@ roslaunch pal_wbc_tutorials rrbot_wbc_topic.launch
 ```
 Then the user can control it by publishing on the topic **/whole_body_kinematic_controller/reference_ref**
 
+```
+rostopic pub /whole_body_kinematic_controller/reference_ref sensor_msgs/JointState "header:
+  seq: 0
+  stamp: {secs: 0, nsecs: 0}
+  frame_id: ''
+name: ['joint1', 'joint2']
+position: [0.0, 0.0]
+velocity: [0.0, 0.0]
+effort: [0.0, 0.0]" 
+```
 
 ## Creation of the new tasks
 
