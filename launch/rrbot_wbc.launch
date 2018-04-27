@@ -16,18 +16,17 @@
   <rosparam command="load"
     file="$(find pal_wbc_tutorial)/config/$(arg stack).yaml" />
 
- <!-- Configure local joint control -->
-  <rosparam command="load"
-    file="$(find pal_wbc_tutorial)/config/rrbot_position_joints.yaml" 
-    ns="whole_body_kinematic_controller"/>
+  <!-- Upload RRBOT robot -->
+  <include file="$(find rrbot_robot)/launch/upload_robot.launch"/>
+
+  <!-- Configure RRBOT robot -->
+  <include file="$(find rrbot_robot)/launch/controllers_configuration.launch">
+    <arg name="controller_name" value="whole_body_kinematic_controller"/>
+  </include>
 
   <!-- Spawn controller -->
   <group if="$(arg spawn)">
     <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
   </group>
 
-  <!-- Running Joint State Controller -->
-  <include file="$(find joint_state_controller)/joint_state_controller.launch"/>
-
 </launch>
-

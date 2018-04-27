@@ -10,12 +10,15 @@
 
   <buildtool_depend>catkin</buildtool_depend>
 
-  <depend>pal_kinematic_simulator</depend>
   <depend>pal_wbc_controller</depend>
   <depend>pal_wbc_utils</depend>
   <depend>pluginlib</depend>
   <depend>joint_state_controller</depend>
   <depend>roscpp</depend>
+
+  <exec_depend>rrbot_robot</exec_depend>
+  
+  <test_depend>pal_kinematic_simulator</test_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

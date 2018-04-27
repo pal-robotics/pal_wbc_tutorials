@@ -1,10 +1,7 @@
 <!-- -->
 <launch>
 
-  <include file="$(find pal_wbc_tutorial)/launch/upload_rrbot.launch" />
-
-  <!-- Configuring Controllers -->
-  <include file="$(find pal_wbc_tutorial)/launch/controllers_configuration.launch"/>
+  <include file="$(find pal_wbc_tutorial)/launch/rrbot_wbc.launch" />
 
   <!-- Pushing the reference task   -->
   <node name="push_reference_pos_task_dynamic_reconfigure" pkg="pal_wbc_tutorial" type="push_reference_pos_task_dynamic_reconfigure" />
