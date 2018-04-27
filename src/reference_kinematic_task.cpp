@@ -1,4 +1,4 @@
-#include <pal_wbc_tutorial/reference_kinematic_task.h>
+#include <pal_wbc_tutorials/reference_kinematic_task.h>
 #include <pal_wbc_controller/stack_of_tasks_kinematic.h>
 #include <pal_ros_utils/reference/pose/pose_reference_abstract.h>
 #include <pal_ros_utils/reference/vector/vector_pointer_reference.h>

@@ -14,7 +14,7 @@
 
   <!-- Configure wbc -->
   <rosparam command="load"
-    file="$(find pal_wbc_tutorial)/config/$(arg stack).yaml" />
+    file="$(find pal_wbc_tutorials)/config/$(arg stack).yaml" />
 
   <!-- Upload RRBOT robot -->
   <include file="$(find rrbot_robot)/launch/upload_robot.launch"/>

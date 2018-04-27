@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(pal_wbc_tutorial)
+project(pal_wbc_tutorials)
 
 #Set compiler according C++11 support
 include(CheckCXXCompilerFlag)
@@ -70,7 +70,7 @@ install(TARGETS ${PROJECT_NAME} push_reference_pos_task_topic
     RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
     )
 
-install(FILES pal_wbc_tutorial_plugins.xml
+install(FILES pal_wbc_tutorials_plugins.xml
    DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
 #############
@@ -78,16 +78,16 @@ install(FILES pal_wbc_tutorial_plugins.xml
 #############
 if (CATKIN_ENABLE_TESTING)
     find_package(rostest REQUIRED)
-    find_package(pal_wbc_tutorial REQUIRED)
-    add_rostest_gtest(pal_wbc_tutorial_ddynamic_reconfigure_test_one test/pal_wbc_tutorial_ddynamic_reconfigure_test_one.test test/pal_wbc_tutorial_ddynamic_reconfigure_test_one.cpp)
-    target_link_libraries(pal_wbc_tutorial_ddynamic_reconfigure_test_one ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
+    find_package(pal_wbc_tutorials REQUIRED)
+    add_rostest_gtest(pal_wbc_tutorials_ddynamic_reconfigure_test_one test/pal_wbc_tutorials_ddynamic_reconfigure_test_one.test test/pal_wbc_tutorials_ddynamic_reconfigure_test_one.cpp)
+    target_link_libraries(pal_wbc_tutorials_ddynamic_reconfigure_test_one ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
 
-    add_rostest_gtest(pal_wbc_tutorial_ddynamic_reconfigure_test_two test/pal_wbc_tutorial_ddynamic_reconfigure_test_two.test test/pal_wbc_tutorial_ddynamic_reconfigure_test_two.cpp)
-    target_link_libraries(pal_wbc_tutorial_ddynamic_reconfigure_test_two ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
+    add_rostest_gtest(pal_wbc_tutorials_ddynamic_reconfigure_test_two test/pal_wbc_tutorials_ddynamic_reconfigure_test_two.test test/pal_wbc_tutorials_ddynamic_reconfigure_test_two.cpp)
+    target_link_libraries(pal_wbc_tutorials_ddynamic_reconfigure_test_two ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
 
-    add_rostest_gtest(pal_wbc_tutorial_pop_and_push_task test/pal_wbc_tutorial_pop_and_push_task.test test/pal_wbc_tutorial_pop_and_push_task.cpp)
-    target_link_libraries(pal_wbc_tutorial_pop_and_push_task ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
+    add_rostest_gtest(pal_wbc_tutorials_pop_and_push_task test/pal_wbc_tutorials_pop_and_push_task.test test/pal_wbc_tutorials_pop_and_push_task.cpp)
+    target_link_libraries(pal_wbc_tutorials_pop_and_push_task ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
 
-    add_rostest_gtest(pal_wbc_tutorial_topic_test test/pal_wbc_tutorial_topic_test.test test/pal_wbc_tutorial_topic_test.cpp)
-    target_link_libraries(pal_wbc_tutorial_topic_test ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
+    add_rostest_gtest(pal_wbc_tutorials_topic_test test/pal_wbc_tutorials_topic_test.test test/pal_wbc_tutorials_topic_test.cpp)
+    target_link_libraries(pal_wbc_tutorials_topic_test ${PROJECT_NAME} ${GTEST_LIBRARIES} ${catkin_LIBRARIES})
 endif(CATKIN_ENABLE_TESTING)

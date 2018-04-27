@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 <package format="2">
 
-  <name>pal_wbc_tutorial</name>
+  <name>pal_wbc_tutorials</name>
   <version>0.0.0</version>
-  <description>The pal_wbc_tutorial package</description>
+  <description>The pal_wbc_tutorials package</description>
   <maintainer email="hilario.tome@pal-robotics.com">Hilario Tomé</maintainer>
 
   <license>TODO</license>
@@ -22,6 +22,6 @@
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>
-    <pal_wbc_controller plugin="${prefix}/pal_wbc_tutorial_plugins.xml" />
+    <pal_wbc_controller plugin="${prefix}/pal_wbc_tutorials_plugins.xml" />
   </export>
 </package>

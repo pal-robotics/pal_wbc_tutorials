@@ -1,0 +1,12 @@
+<!-- -->
+<launch>
+
+  <include file="$(find pal_wbc_tutorials)/launch/rrbot_wbc.launch" />
+
+  <test test-name="pal_wbc_tutorials_pop_and_push_task" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_pop_and_push_task" time-limit="120.0"/>
+
+  <!-- Show in Rviz -->
+  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorials)/launch/rrbot_rviz.rviz"/>-->
+
+</launch>
+

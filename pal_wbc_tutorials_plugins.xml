@@ -1,4 +1,4 @@
-<library path="lib/libpal_wbc_tutorial">
+<library path="lib/libpal_wbc_tutorials">
 
   <class name="rrbot_stack" type="rrbot_stack" base_class_type="StackConfigurationKinematic">
     <description>

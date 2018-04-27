@@ -3,8 +3,8 @@
 #include <pal_wbc_controller/task_abstract.h>
 #include <pal_wbc_controller/stack_of_tasks_kinematic.h>
 
-#include <pal_wbc_tutorial/joint_pos_limit_kinematic_task.h>
-#include <pal_wbc_tutorial/reference_kinematic_task.h>
+#include <pal_wbc_tutorials/joint_pos_limit_kinematic_task.h>
+#include <pal_wbc_tutorials/reference_kinematic_task.h>
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
 #include <pal_utils/permutation.h>

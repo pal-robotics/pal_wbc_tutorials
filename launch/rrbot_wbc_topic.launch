@@ -2,13 +2,13 @@
 <launch>
 
   <!-- Spawn RRBOT with WBC -->
-  <include file="$(find pal_wbc_tutorial)/launch/rrbot_wbc.launch" />
+  <include file="$(find pal_wbc_tutorials)/launch/rrbot_wbc.launch" />
 
   <!-- Pushing the reference task -->
-  <node name="push_reference_pos_task_topic" pkg="pal_wbc_tutorial" type="push_reference_pos_task_topic" />
+  <node name="push_reference_pos_task_topic" pkg="pal_wbc_tutorials" type="push_reference_pos_task_topic" />
 
   <!-- Show in Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorial)/launch/rrbot_rviz.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorials)/launch/rrbot_rviz.rviz"/>
 
 </launch>
 

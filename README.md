@@ -37,14 +37,14 @@ In this tutorial, the RRBOT robot can be controller in two different ways:
 To launch the robot to control in dynamic reconfigure mode, launch:
 ```bash
 # To launch rrbot to be controlled by rqt_reconfigure
-roslaunch pal_wbc_tutorial rrbot_wbc_dynamic_reconfigure.launch
+roslaunch pal_wbc_tutorials rrbot_wbc_dynamic_reconfigure.launch
 ```
 Then the user can control the robot by using the slides of the rqt_joint_reconfigure. It's also possible to change online the joint limits from the robot using the rqt_reconfigure.
 
 The second opstion is to control the robot giving a reference for each joint:
 ```bash
 # To launch rrbot to be controlled by rostopic
-roslaunch pal_wbc_tutorial rrbot_wbc_topic.launch
+roslaunch pal_wbc_tutorials rrbot_wbc_topic.launch
 ```
 Then the user can control it by publishing on the topic **/whole_body_kinematic_controller/reference_ref**
 
@@ -74,16 +74,16 @@ catkin build --make-args tests
 And execute them 
 
 ```
-rostest pal_wbc_tutorial pal_wbc_tutorial_ddynamic_reconfigure_test_one.test
+rostest pal_wbc_tutorials pal_wbc_tutorials_ddynamic_reconfigure_test_one.test
 ```
 ```
-rostest pal_wbc_tutorial pal_wbc_tutorial_ddynamic_reconfigure_test_two.test
+rostest pal_wbc_tutorials pal_wbc_tutorials_ddynamic_reconfigure_test_two.test
 ```
 ```
-rostest pal_wbc_tutorial pal_wbc_tutorial_pop_and_push_task.test
+rostest pal_wbc_tutorials pal_wbc_tutorials_pop_and_push_task.test
 ```
 ```
-rostest pal_wbc_tutorial pal_wbc_tutorial_topic_test.test
+rostest pal_wbc_tutorials pal_wbc_tutorials_topic_test.test
 ```
 
 ## Authors
