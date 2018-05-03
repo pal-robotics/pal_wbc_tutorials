@@ -7,8 +7,5 @@
   <!-- Pushing the reference task -->
   <node name="push_reference_pos_task_topic" pkg="pal_wbc_tutorials" type="push_reference_pos_task_topic" />
 
-  <!-- Show in Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorials)/launch/rrbot_rviz.rviz"/>
-
 </launch>
 

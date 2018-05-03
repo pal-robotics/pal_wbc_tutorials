@@ -52,8 +52,8 @@ TEST(PopAndPushTest, DynamicReconfigureTest)
   task.addProperty("task_id", std::string("rrbot_default_reference"));
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   task.addProperty("joint_names", joint_names);
   task.addProperty("signal_reference", std::string("vector_dynamic_reconfigure"));
@@ -64,11 +64,11 @@ TEST(PopAndPushTest, DynamicReconfigureTest)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   task.addProperty("reference", reference_posture);
@@ -85,8 +85,8 @@ TEST(PopAndPushTest, DynamicReconfigureTest)
 
   /// Now we shall make it to new position by popint out the current task and pushing the
   /// new updates position task
-  reference_posture(0) = 1.57;
-  reference_posture(1) = 1.57;
+  reference_posture(0) = 0.8;
+  reference_posture(1) = 0.8;
   task.updateProperty("reference", reference_posture);
 
   srv_helper.popTask("rrbot_default_reference");
@@ -127,8 +127,8 @@ TEST(PopAndPushTest, TopicTest)
   task.addProperty("task_id", std::string("rrbot_default_reference"));
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   task.addProperty("joint_names", joint_names);
   task.addProperty("signal_reference", std::string("vector_topic"));
@@ -139,11 +139,11 @@ TEST(PopAndPushTest, TopicTest)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   task.addProperty("reference", reference_posture);
@@ -160,8 +160,8 @@ TEST(PopAndPushTest, TopicTest)
 
   /// Now we shall make it to new position by popint out the current task and pushing the
   /// new updates position task
-  reference_posture(0) = 1.57;
-  reference_posture(1) = 1.57;
+  reference_posture(0) = 0.4;
+  reference_posture(1) = 1.0;
   task.updateProperty("reference", reference_posture);
 
   srv_helper.popTask("rrbot_default_reference");

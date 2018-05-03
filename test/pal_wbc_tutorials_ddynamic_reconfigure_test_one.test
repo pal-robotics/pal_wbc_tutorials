@@ -1,15 +1,14 @@
 <!-- -->
 <launch>
 
-  <include file="$(find pal_wbc_tutorials)/launch/rrbot_wbc.launch" />
+  <include file="$(find pal_wbc_tutorials)/launch/rrbot_wbc.launch">
+    <arg name="rviz" value="false"/>
+  </include>
 
   <!-- Pushing the reference task   -->
   <node name="push_reference_pos_task_dynamic_reconfigure" pkg="pal_wbc_tutorials" type="push_reference_pos_task_dynamic_reconfigure" />
 
   <test test-name="pal_wbc_tutorials_ddynamic_reconfigure_test_one" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_ddynamic_reconfigure_test_one" time-limit="120.0"/>
-
-  <!-- Show in Rviz -->
-  <!--<node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorials)/launch/rrbot_rviz.rviz"/>-->
 
 </launch>
 

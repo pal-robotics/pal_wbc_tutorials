@@ -10,8 +10,5 @@
   <!-- Running rqt_reconfigure for the user to control/configure the joint angles -->
   <node name="joints_angle_dynamic_reconfigure" pkg="rqt_reconfigure" type="rqt_reconfigure" />
 
-  <!-- Show in Rviz -->
-  <node name="rviz" pkg="rviz" type="rviz" args="-d $(find pal_wbc_tutorials)/launch/rrbot_rviz.rviz"/>
-
 </launch>
 

@@ -7,8 +7,8 @@ This package is a tutorial for pal_wbc in order to help the users to create new 
 In order to compile this package you vill need_
 
 * ROS Kinetic installed on your computer.
-* The pal_wbc package.
-* The RRBOT robot ROS package.
+* The pal_wbc package, which is a non Public package distributed by PAL robotics.
+* The [RRBOT](https://github.com/carlosjoserg/rrbot) robot ROS package.
 * The [pluginlib](http://wiki.ros.org/pluginlib) ROS package
 
 ### Installing
@@ -29,7 +29,7 @@ catkin build
 
 ## Running the tutorials
 
-In this tutorial, the RRBOT robot can be controller in two different ways:
+In this tutorial, the RRBOT robot can be controlled in two different ways:
 
 1. **dynamic_reconfigure**
 2. **ros topics**
@@ -53,8 +53,8 @@ rostopic pub /whole_body_kinematic_controller/reference_ref sensor_msgs/JointSta
   seq: 0
   stamp: {secs: 0, nsecs: 0}
   frame_id: ''
-name: ['joint1', 'joint2']
-position: [0.0, 0.0]
+name: ['single_rrbot_joint1', 'single_rrbot_joint2']
+position: [0.8, 0.8]
 velocity: [0.0, 0.0]
 effort: [0.0, 0.0]" 
 ```

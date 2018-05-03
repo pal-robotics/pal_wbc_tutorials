@@ -5,6 +5,7 @@
   <arg name="valgrind" default="false"/>
   <arg name="stack" default="rrbot_stack"/>
   <arg name="spawn" default="true"/>
+  <arg name="rviz" default="true"/>
 
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
@@ -17,12 +18,18 @@
     file="$(find pal_wbc_tutorials)/config/$(arg stack).yaml" />
 
   <!-- Upload RRBOT robot -->
-  <include file="$(find rrbot_robot)/launch/upload_robot.launch"/>
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rrbot_description)/robots/single_rrbot.urdf.xacro'"/>
+
+  <include file="$(find joint_state_controller)/joint_state_controller.launch"/>
+
+  <!-- Show in Rviz   -->
+  <group if="$(arg rviz)">
+    <node name="rviz" pkg="rviz" type="rviz" args="-d $(find rrbot_description)/launch/rrbot.rviz"/>
+  </group>
 
   <!-- Configure RRBOT robot -->
-  <include file="$(find rrbot_robot)/launch/controllers_configuration.launch">
-    <arg name="controller_name" value="whole_body_kinematic_controller"/>
-  </include>
+  <rosparam command="load"
+    file="$(find pal_wbc_tutorials)/config/rrbot_position_joints.yaml" ns="whole_body_kinematic_controller"/>
 
   <!-- Spawn controller -->
   <group if="$(arg spawn)">

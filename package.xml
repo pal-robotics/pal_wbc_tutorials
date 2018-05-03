@@ -16,9 +16,8 @@
   <depend>joint_state_controller</depend>
   <depend>roscpp</depend>
 
-  <exec_depend>rrbot_robot</exec_depend>
-  
-  <test_depend>pal_kinematic_simulator</test_depend>
+  <exec_depend>rrbot_description</exec_depend>
+  <exec_depend>pal_kinematic_simulator</exec_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

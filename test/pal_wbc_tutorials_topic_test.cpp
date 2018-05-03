@@ -51,8 +51,8 @@ TEST(TopicTest, DefaultConfigurationAngles)
   task.addProperty("task_id", std::string("rrbot_default_reference"));
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   task.addProperty("joint_names", joint_names);
   task.addProperty("signal_reference", std::string("vector_topic"));
@@ -63,11 +63,11 @@ TEST(TopicTest, DefaultConfigurationAngles)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   task.addProperty("reference", reference_posture);
@@ -95,8 +95,8 @@ TEST(TopicTest, ChangingJoint1AngleParameters)
       "/whole_body_kinematic_controller/reference_ref", 10);
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   Eigen::VectorXd reference_posture(joint_names.size());
   reference_posture.setZero();
@@ -104,11 +104,11 @@ TEST(TopicTest, ChangingJoint1AngleParameters)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   /// sending the command to move to a particular position through topic
@@ -152,8 +152,8 @@ TEST(TopicTest, ChangingJoint2AngleParameters)
       "/whole_body_kinematic_controller/reference_ref", 10);
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   Eigen::VectorXd reference_posture(joint_names.size());
   reference_posture.setZero();
@@ -161,11 +161,11 @@ TEST(TopicTest, ChangingJoint2AngleParameters)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   /// sending the command to move to a particular position through topic
@@ -176,7 +176,7 @@ TEST(TopicTest, ChangingJoint2AngleParameters)
   msg.name = joint_names;
   msg.position.resize(joint_names.size());
   msg.position[0] = reference_posture(0);
-  msg.position[1] = 2.0;
+  msg.position[1] = 1.4;
   msg.velocity.resize(joint_names.size());
   msg.effort.resize(joint_names.size());
 
@@ -206,12 +206,12 @@ TEST(TopicTest, LowerJointLimitsTest)
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
   std::vector<double> joint_lower_limits;
-  joint_lower_limits.push_back(0.4);
-  joint_lower_limits.push_back(2.1);
+  joint_lower_limits.push_back(0.1);
+  joint_lower_limits.push_back(0.8);
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   for (size_t i = 0; i < joint_lower_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
@@ -228,14 +228,14 @@ TEST(TopicTest, LowerJointLimitsTest)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
-  ros::Duration(1.0).sleep();
+  ros::Duration(2.0).sleep();
   ros::spinOnce();
   std::vector<double> desired_joint_angles(j.joint_angles);
 
@@ -249,14 +249,14 @@ TEST(TopicTest, LowerJointLimitsTest)
     ASSERT_NEAR(desired_joint_angles[i], j.joint_angles[i], 1e-4);
 
   // increasing the lower limit of the joint1 to see the effect in the robot
-  joint_lower_limits[0] = 2.1;
+  joint_lower_limits[0] = 1.0;
   for (size_t i = 0; i < joint_lower_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
             std::string(joint_names.at(i)) + "_lower_pos " +
             std::to_string(joint_lower_limits.at(i)))
                .c_str());
 
-  ros::Duration(1.0).sleep();
+  ros::Duration(2.0).sleep();
   ros::spinOnce();
   desired_joint_angles = j.joint_angles;
 
@@ -271,7 +271,7 @@ TEST(TopicTest, LowerJointLimitsTest)
 
   /// Setting back the lower limits for the next test
   for (size_t i = 0; i < joint_lower_limits.size(); i++)
-    joint_lower_limits[i] = reference_posture(i) - 1.0;
+    joint_lower_limits[i] = 0.0;
 
   for (size_t i = 0; i < joint_lower_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
@@ -291,12 +291,12 @@ TEST(TopicTest, HigherJointLimitsTest)
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
   std::vector<double> joint_upper_limits;
-  joint_upper_limits.push_back(0.9);
-  joint_upper_limits.push_back(1.8);
+  joint_upper_limits.push_back(1.4);
+  joint_upper_limits.push_back(0.2);
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
@@ -313,14 +313,13 @@ TEST(TopicTest, HigherJointLimitsTest)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
-
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
-  ros::Duration(1.0).sleep();
+  ros::Duration(3.0).sleep();
   ros::spinOnce();
   std::vector<double> desired_joint_angles(j.joint_angles);
 
@@ -333,15 +332,15 @@ TEST(TopicTest, HigherJointLimitsTest)
   for (size_t i = 0; i < joint_names.size(); i++)
     ASSERT_NEAR(desired_joint_angles[i], j.joint_angles[i], 1e-4);
 
-  // increasing the lower limit of the joint1 to see the effect in the robot
-  joint_upper_limits[0] = 1.4;
+  // decreasing the upper limit of the joint1 to see the effect in the robot
+  joint_upper_limits[0] = 0.1;
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
             std::string(joint_names.at(i)) + "_upper_pos " +
             std::to_string(joint_upper_limits.at(i)))
                .c_str());
 
-  ros::Duration(1.0).sleep();
+  ros::Duration(2.0).sleep();
   ros::spinOnce();
   desired_joint_angles = j.joint_angles;
 

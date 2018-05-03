@@ -25,8 +25,8 @@ int main(int argc, char **argv)
   task.addProperty("task_id", std::string("rrbot_default_reference"));
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   task.addProperty("joint_names", joint_names);
 
@@ -40,11 +40,11 @@ int main(int argc, char **argv)
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
 
-    reference_posture(indexVectorThrow(joint_names, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
-    reference_posture(indexVectorThrow(joint_names, std::string("joint2"))) = pos;
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
+    reference_posture(indexVectorThrow(joint_names, std::string("single_rrbot_joint2"))) = pos;
   }
 
   task.addProperty("reference", reference_posture);
