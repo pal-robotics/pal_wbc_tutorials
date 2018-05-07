@@ -12,9 +12,9 @@ whole_body_kinematic_controller:
   use_home_posture: False
 
   default_configuration:
-    joint1: 1.7
-    joint2: 0.5
+    single_rrbot_joint1: 0.2
+    single_rrbot_joint2: 0.4
 
   position_joints:
-    - joint1
-    - joint2
+    - single_rrbot_joint1
+    - single_rrbot_joint2

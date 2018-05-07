@@ -1,6 +1,0 @@
-<!-- -->
-<launch>
-  <!-- Robot description -->
-  <param name="robot_description" command="$(find xacro)/xacro '$(find pal_wbc_tutorial)/robots/rrbot.xacro'" />
-</launch>
-

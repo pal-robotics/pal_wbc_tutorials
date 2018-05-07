@@ -1,4 +1,4 @@
-#include <pal_wbc_tutorial/joint_pos_limit_kinematic_task.h>
+#include <pal_wbc_tutorials/joint_pos_limit_kinematic_task.h>
 #include <pal_wbc_controller/stack_of_tasks_kinematic.h>
 #include <iostream>
 #include <pal_utils/formater.h>

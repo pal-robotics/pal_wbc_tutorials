@@ -32,12 +32,12 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   JointData j;
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   std::vector<double> joint_upper_limits;
-  joint_upper_limits.push_back(2.1);
-  joint_upper_limits.push_back(0.3);
+  joint_upper_limits.push_back(1.5);
+  joint_upper_limits.push_back(0.2);
 
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
@@ -56,9 +56,9 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   if (nh.hasParam("/whole_body_kinematic_controller/default_configuration"))
   {
     ROS_INFO("Getting reference from param server");
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1",
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1",
                 desired_joint_angles[0]);
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2",
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2",
                 desired_joint_angles[1]);
   }
 
@@ -72,7 +72,7 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
     ASSERT_NEAR(desired_joint_angles[i], j.joint_angles[i], 1e-3);
 
   // increasing the lower limit of the joint1 to see the effect in the robot
-  joint_upper_limits[0] = 1.2;
+  joint_upper_limits[0] = 0.1;
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
             std::string(joint_names.at(i)) + "_upper_pos " +
@@ -95,8 +95,8 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   ROS_INFO("Upper Joint Limit Configuration has been successfully achieved");
 
   // setting back the limits to the desirable range
-  joint_upper_limits[0] = 3.14;
-  joint_upper_limits[1] = 3.14 / 2.;
+  joint_upper_limits[0] = 1.57;
+  joint_upper_limits[1] = 1.57;
 
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
     system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
@@ -111,14 +111,14 @@ TEST(DynamicReconfigureTest, ChangingEachAngleParameters)
   JointData j;
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
   std::vector<double> desired_joint_angles;
-  desired_joint_angles.push_back(2.0);
+  desired_joint_angles.push_back(1.2);
   desired_joint_angles.push_back(1.0);
 
   system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/reference " +
@@ -133,14 +133,14 @@ TEST(DynamicReconfigureTest, ChangingEachAngleParameters)
   if (nh.hasParam("/whole_body_kinematic_controller/default_configuration"))
   {
     ROS_INFO("Getting reference from param server");
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2",
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2",
                 desired_joint_angles[1]);
   }
 
   for (size_t i = 0; i < joint_names.size(); i++)
     ASSERT_NEAR(desired_joint_angles[i], j.joint_angles[i], 1e-3);
 
-  desired_joint_angles[1] = 1.0;
+  desired_joint_angles[1] = 0.5;
   system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/reference " +
           std::string(joint_names.at(1)) + " " + std::to_string(desired_joint_angles.at(1)))
              .c_str());
@@ -158,15 +158,15 @@ TEST(DynamicReconfigureTest, ChangingAngleParameters)
   JointData j;
 
   std::vector<std::string> joint_names;
-  joint_names.push_back("joint1");
-  joint_names.push_back("joint2");
+  joint_names.push_back("single_rrbot_joint1");
+  joint_names.push_back("single_rrbot_joint2");
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
   std::vector<double> desired_joint_angles;
-  desired_joint_angles.push_back(2.0);
-  desired_joint_angles.push_back(1.0);
+  desired_joint_angles.push_back(0.8);
+  desired_joint_angles.push_back(0.8);
 
   for (size_t i = 0; i < desired_joint_angles.size(); i++)
   {

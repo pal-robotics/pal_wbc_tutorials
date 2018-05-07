@@ -3,8 +3,8 @@
 #include <pal_wbc_controller/task_abstract.h>
 #include <pal_wbc_controller/stack_of_tasks_kinematic.h>
 
-#include <pal_wbc_tutorial/joint_pos_limit_kinematic_task.h>
-#include <pal_wbc_tutorial/reference_kinematic_task.h>
+#include <pal_wbc_tutorials/joint_pos_limit_kinematic_task.h>
+#include <pal_wbc_tutorials/reference_kinematic_task.h>
 #include <pal_wbc_controller/generic_meta_task.h>
 #include <pluginlib/class_list_macros.h>
 #include <pal_utils/permutation.h>
@@ -28,12 +28,12 @@ bool get_default_reference_from_param_server(const std::vector<std::string> &def
   {
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint1", pos);
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
     default_reference_posture(
-        indexVectorThrow(default_reference_joints, std::string("joint1"))) = pos;
-    nh.getParam("/whole_body_kinematic_controller/default_configuration/joint2", pos);
+        indexVectorThrow(default_reference_joints, std::string("single_rrbot_joint1"))) = pos;
+    nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
     default_reference_posture(
-        indexVectorThrow(default_reference_joints, std::string("joint2"))) = pos;
+        indexVectorThrow(default_reference_joints, std::string("single_rrbot_joint2"))) = pos;
     return true;
   }
   return false;
@@ -52,12 +52,12 @@ class rrbot_stack : public StackConfigurationKinematic
   bool setupStack(StackOfTasksKinematicPtr stack, ros::NodeHandle &nh)
   {
     std::vector<double> joint_pos_min_override = stack->getJointPositionLimitMin();
-    joint_pos_min_override[stack->getJointIndex("joint1")] = 0.2;
-    joint_pos_min_override[stack->getJointIndex("joint2")] = 0.1;
+    joint_pos_min_override[stack->getJointIndex("single_rrbot_joint1")] = 0.0;
+    joint_pos_min_override[stack->getJointIndex("single_rrbot_joint2")] = 0.0;
 
     std::vector<std::string> default_reference_joints;
-    default_reference_joints.push_back("joint1");
-    default_reference_joints.push_back("joint2");
+    default_reference_joints.push_back("single_rrbot_joint1");
+    default_reference_joints.push_back("single_rrbot_joint2");
 
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(

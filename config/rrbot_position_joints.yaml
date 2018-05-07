@@ -1,5 +1,5 @@
 joints:        
-  joint1:
+  single_rrbot_joint1:
     type: pal_local_joint_control::DirectPositionControl
-  joint2:
+  single_rrbot_joint2:
     type: pal_local_joint_control::DirectPositionControl
