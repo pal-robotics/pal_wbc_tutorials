@@ -29,11 +29,11 @@ bool get_default_reference_from_param_server(const std::vector<std::string> &def
     ROS_INFO("Getting reference from param server");
     double pos = 0.0;
     nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint1", pos);
-    default_reference_posture(
-        indexVectorThrow(default_reference_joints, std::string("single_rrbot_joint1"))) = pos;
+    default_reference_posture(indexVectorThrow(default_reference_joints,
+                                               std::string("single_rrbot_joint1"))) = pos;
     nh.getParam("/whole_body_kinematic_controller/default_configuration/single_rrbot_joint2", pos);
-    default_reference_posture(
-        indexVectorThrow(default_reference_joints, std::string("single_rrbot_joint2"))) = pos;
+    default_reference_posture(indexVectorThrow(default_reference_joints,
+                                               std::string("single_rrbot_joint2"))) = pos;
     return true;
   }
   return false;
@@ -62,11 +62,11 @@ class rrbot_stack : public StackConfigurationKinematic
     // 1. Joint and velocity limits
     JointPositionLimitKinematicAllJointsMetaTaskPtr joint_position_limit_task(
         new JointPositionLimitKinematicAllJointsMetaTask(
-            *stack.get(), joint_pos_min_override, stack->getJointPositionLimitMax(),
-            stack->getJointVelocityLimitMin(), stack->getJointVelocityLimitMax(),
-            stack->getJointNames(), 1.0, false, nh));
+            "rrbot_joint_limits", *stack.get(), joint_pos_min_override,
+            stack->getJointPositionLimitMax(), stack->getJointVelocityLimitMin(),
+            stack->getJointVelocityLimitMax(), stack->getJointNames(), 1.0, false, nh));
 
-    stack->pushTask("rrbot_joint_limits", joint_position_limit_task);
+    stack->pushTask(joint_position_limit_task);
 
     return true;
   }

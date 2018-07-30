@@ -25,18 +25,19 @@ struct ReferenceKinematicTaskRRBotParam
   std::vector<std::string> names;
   pal_robot_tools::VectorReferenceAbstractPtr reference;
   double p_pos_gain;
-//  std::vector<double> joint_angles;
+  //  std::vector<double> joint_angles;
 
   ReferenceKinematicTaskRRBotParam()
   {
     p_pos_gain = 1.5;
-//    joint_angles.resize(1);
-//    joint_angles.at(0) = 0.0;
+    //    joint_angles.resize(1);
+    //    joint_angles.at(0) = 0.0;
   }
 };
 
 /**
- * @brief The ReferenceKinematicTaskRRBot class defenides a goal configuration for a set of
+ * @brief The ReferenceKinematicTaskRRBot class defenides a goal configuration for a set
+ * of
  * joints
  */
 class ReferenceKinematicTaskRRBot
@@ -47,14 +48,14 @@ public:
 
   virtual ~ReferenceKinematicTaskRRBot();
 
-  bool setUpTask();
-  bool setUpTask(const ReferenceKinematicTaskRRBotParam &ct, StackOfTasksKinematic &st,
-                 ros::NodeHandle &nh) override;
-  bool setUpTaskPropertyBag(const property_bag::PropertyBag &properties,
-                            StackOfTasksKinematic &st, ros::NodeHandle &nh) override;
-  bool startTask() override;
+  bool reconfigureTask();
+  bool configureTask(ros::NodeHandle &nh) override;
+  bool configureConstraintsFromProppertyBag(ros::NodeHandle &nh, StackOfTasksKinematic *st,
+                                            const property_bag::PropertyBag &properties,
+                                            ReferenceKinematicTaskRRBotParam *parameters) override;
+  bool start() override;
   void update(const Eigen::VectorXd &Q, const Eigen::VectorXd &QDot, const ros::Time &time) override;
-  bool stopTask() override;
+  bool stop() override;
   void debug(const Eigen::VectorXd &solution, const ros::Time &time);
   virtual std::string getType() override
   {
@@ -62,9 +63,6 @@ public:
   }
 
 private:
-  RigidBodyDynamics::Model *model_;
-  int nDof_;
-  int nState_;
   std::vector<int> jointIndex_;
 
   Eigen::VectorXd desiredPosition_;
@@ -81,7 +79,8 @@ typedef boost::shared_ptr<ReferenceKinematicTaskRRBot> ReferenceKinematicTaskRRB
 
 
 /**
- * @brief The ReferenceKinematicTaskRRBotAllJointsMetaTask class is a helper class to configure
+ * @brief The ReferenceKinematicTaskRRBotAllJointsMetaTask class is a helper class to
+ * configure
  * the
  * ReferenceKinematic task
  */
@@ -92,15 +91,17 @@ public:
   {
   }
 
-  ReferenceKinematicTaskRRBotAllJointsMetaTask(StackOfTasksKinematic &st,
-                                          const std::vector<std::string> &joint_names,
-                                          pal_robot_tools::VectorReferenceAbstractPtr reference,
-                                          double gain, ros::NodeHandle &nh);
+  ReferenceKinematicTaskRRBotAllJointsMetaTask(const std::string &task_id,
+                                               StackOfTasksKinematic &st,
+                                               const std::vector<std::string> &joint_names,
+                                               pal_robot_tools::VectorReferenceAbstractPtr reference,
+                                               double gain, ros::NodeHandle &nh);
 
-  ReferenceKinematicTaskRRBotAllJointsMetaTask(StackOfTasksKinematic &st,
-                                          const std::vector<std::string> &joint_names,
-                                          const Eigen::VectorXd &referencePosition,
-                                          ros::NodeHandle &nh, const double &gain);
+  ReferenceKinematicTaskRRBotAllJointsMetaTask(const std::string &task_id,
+                                               StackOfTasksKinematic &st,
+                                               const std::vector<std::string> &joint_names,
+                                               const Eigen::VectorXd &referencePosition,
+                                               ros::NodeHandle &nh, const double &gain);
   virtual std::string getType()
   {
     return demangledTypeName(this);
