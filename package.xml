@@ -17,7 +17,10 @@
   <depend>roscpp</depend>
 
   <exec_depend>rrbot_description</exec_depend>
+  <exec_depend>rrbot_controllers</exec_depend>
   <exec_depend>pal_kinematic_simulator</exec_depend>
+
+  <test_depend>xacro</test_depend>
 
   <!-- The export tag contains other, unspecified, tags -->
   <export>

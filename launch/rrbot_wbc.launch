@@ -6,6 +6,7 @@
   <arg name="stack" default="rrbot_stack"/>
   <arg name="spawn" default="true"/>
   <arg name="rviz" default="true"/>
+  <arg name="ns" default="whole_body_kinematic_controller"/>
 
   <include file="$(find pal_kinematic_simulator)/launch/kinematic_simulator_ros_control.launch">
     <arg name="debug" value="$(arg debug)"/>
@@ -13,9 +14,14 @@
     <arg name="parameters" value="--cycle_time 0.001"/> 
   </include>
 
+  <include file="$(find rrbot_controllers)/launch/local_joint_control.launch">
+      <arg name="local_joint_control_type" value="direct_position_control"/>
+      <arg name="ns" value="/$(arg ns)"/>
+  </include>
+
   <!-- Configure wbc -->
   <rosparam command="load"
-    file="$(find pal_wbc_tutorials)/config/$(arg stack).yaml" />
+    file="$(find pal_wbc_tutorials)/config/$(arg stack).yaml" ns="$(arg ns)"/>
 
   <!-- Upload RRBOT robot -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find rrbot_description)/robots/single_rrbot.urdf.xacro'"/>
@@ -29,11 +35,11 @@
 
   <!-- Configure RRBOT robot -->
   <rosparam command="load"
-    file="$(find pal_wbc_tutorials)/config/rrbot_position_joints.yaml" ns="whole_body_kinematic_controller"/>
+    file="$(find pal_wbc_tutorials)/config/rrbot_position_joints.yaml" ns="$(arg ns)" />
 
   <!-- Spawn controller -->
   <group if="$(arg spawn)">
-    <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="whole_body_kinematic_controller" />
+    <node name="wbc_controllers_spawner" pkg="controller_manager" type="spawner" output="screen" args="$(arg ns)"/>
   </group>
 
 </launch>
