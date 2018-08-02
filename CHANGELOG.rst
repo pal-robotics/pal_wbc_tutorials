@@ -2,8 +2,8 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.1 (2018-08-02)
+------------------
 * Merge branch 'bleding_fix' into 'master'
   Update wbc API
   See merge request apps/pal_wbc_tutorials!4
