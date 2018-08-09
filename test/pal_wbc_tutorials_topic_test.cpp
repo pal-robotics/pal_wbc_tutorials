@@ -37,6 +37,14 @@ TEST(TopicTest, DefaultConfigurationAngles)
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
+
   /// Task Creation
   /// By default, only the joint limits task will be pushed, So we create a new task of
   /// joint reference and push it on to the stack
@@ -90,6 +98,14 @@ TEST(TopicTest, ChangingJoint1AngleParameters)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   ros::Publisher command = nh.advertise<sensor_msgs::JointState>(
       "/whole_body_kinematic_controller/reference_ref", 10);
@@ -148,6 +164,14 @@ TEST(TopicTest, ChangingJoint2AngleParameters)
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
+
   ros::Publisher command = nh.advertise<sensor_msgs::JointState>(
       "/whole_body_kinematic_controller/reference_ref", 10);
 
@@ -204,6 +228,14 @@ TEST(TopicTest, LowerJointLimitsTest)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   std::vector<double> joint_lower_limits;
   joint_lower_limits.push_back(0.1);
@@ -289,6 +321,14 @@ TEST(TopicTest, HigherJointLimitsTest)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   std::vector<double> joint_upper_limits;
   joint_upper_limits.push_back(1.4);

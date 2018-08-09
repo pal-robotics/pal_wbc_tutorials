@@ -38,6 +38,14 @@ TEST(DynamicReconfigureTest, DefaultConfigurationAngles)
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
+
   ros::Duration(10.0).sleep();
   ros::spinOnce();
   std::vector<double> desired_joint_angles;
@@ -72,6 +80,14 @@ TEST(DynamicReconfigureTest, ChangingEachAngleParameters)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   std::vector<double> desired_joint_angles;
   desired_joint_angles.push_back(1.0);
@@ -129,6 +145,14 @@ TEST(DynamicReconfigureTest, LowerJointLimitsTest)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   ros::Duration(2.0).sleep();
   ros::spinOnce();

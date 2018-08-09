@@ -38,6 +38,14 @@ TEST(PopAndPushTest, DynamicReconfigureTest)
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
 
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
+
   /// Task Creation
   /// By default, only the joint limits task will be pushed, So we create a new task of
   /// joint reference and push it on to the stack
@@ -112,6 +120,14 @@ TEST(PopAndPushTest, TopicTest)
 
   ros::Subscriber joint_state_sub =
       nh.subscribe("/joint_states", 10, &JointData::callback, &j);
+
+  ros::Time start_time = ros::Time::now();
+  while(j.joint_angles.empty() && ((ros::Time::now() - start_time) < ros::Duration(5.0)))
+  {
+    ros::spinOnce();
+    ros::Duration(0.01).sleep();
+  }
+  EXPECT_FALSE(j.joint_angles.empty());
 
   /// Task Creation
   /// By default, only the joint limits task will be pushed, So we create a new task of
