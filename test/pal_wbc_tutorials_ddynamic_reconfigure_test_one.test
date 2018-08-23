@@ -8,7 +8,7 @@
   <!-- Pushing the reference task   -->
   <node name="push_reference_pos_task_dynamic_reconfigure" pkg="pal_wbc_tutorials" type="push_reference_pos_task_dynamic_reconfigure" />
 
-  <test test-name="pal_wbc_tutorials_ddynamic_reconfigure_test_one" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_ddynamic_reconfigure_test_one" time-limit="120.0"/>
+  <test test-name="pal_wbc_tutorials_ddynamic_reconfigure_test_one" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_ddynamic_reconfigure_test_one" time-limit="500.0" retry="1"/>
 
 </launch>
 
