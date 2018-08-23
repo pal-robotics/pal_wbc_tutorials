@@ -2,6 +2,16 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'js_test_fix' into 'master'
+  Fix segfault when js is empty
+  See merge request apps/pal_wbc_tutorials!5
+* Add retry to tests
+* Increase test timeouts
+* Fix segfault when js is empty
+* Contributors: Adrià Roig, Hilario Tome
+
 0.0.1 (2018-08-02)
 ------------------
 * Merge branch 'bleding_fix' into 'master'
