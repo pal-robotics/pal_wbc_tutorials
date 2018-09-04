@@ -2,6 +2,15 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'fix_tests_ns' into 'master'
+  Fix test ddynamic_reconfigure_test_one
+  See merge request apps/pal_wbc_tutorials!6
+* Fix tests
+* Fix test ddynamic_reconfigure_test_one
+* Contributors: Adria Roig, Hilario Tome
+
 0.0.2 (2018-08-23)
 ------------------
 * Merge branch 'js_test_fix' into 'master'
