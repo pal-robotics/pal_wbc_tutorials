@@ -3,6 +3,7 @@
 #include <ros/ros.h>
 #include <gtest/gtest.h>
 #include <sensor_msgs/JointState.h>
+#include <pal_utils/exception_utils.h>
 
 struct JointData
 {
@@ -40,7 +41,7 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   joint_upper_limits.push_back(0.2);
 
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
-    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
+    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/rrbot_joint_limits/joint_limits " +
             std::string(joint_names.at(i)) + "_upper_pos " +
             std::to_string(joint_upper_limits.at(i)))
                .c_str());
@@ -82,7 +83,7 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   // increasing the lower limit of the joint1 to see the effect in the robot
   joint_upper_limits[0] = 0.1;
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
-    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
+    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/rrbot_joint_limits/joint_limits " +
             std::string(joint_names.at(i)) + "_upper_pos " +
             std::to_string(joint_upper_limits.at(i)))
                .c_str());
@@ -107,7 +108,7 @@ TEST(DynamicReconfigureTest, UpperJointLimitsTest)
   joint_upper_limits[1] = 1.57;
 
   for (size_t i = 0; i < joint_upper_limits.size(); i++)
-    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/joint_limits " +
+    system(("rosrun dynamic_reconfigure dynparam set /whole_body_kinematic_controller/rrbot_joint_limits/joint_limits " +
             std::string(joint_names.at(i)) + "_upper_pos " +
             std::to_string(joint_upper_limits.at(i)))
                .c_str());
@@ -211,5 +212,15 @@ int main(int argc, char **argv)
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "dynamic_reconfigure_test");
   ros::NodeHandle nh;
+  ros::Time::waitForValid();
+  {
+    boost::shared_ptr<const sensor_msgs::JointState> joint_state_msg;
+    // AS: Wait for the whole body controller to come up. It would be nice to
+    // find a way to avoid hardcoding controller name
+    joint_state_msg = ros::topic::waitForMessage<sensor_msgs::JointState>(
+        "/joint_states", nh, ros::Duration(20.0));
+    PAL_ASSERT_PERSIST(NULL != joint_state_msg, "Controller is not running.");
+  }
+
   return RUN_ALL_TESTS();
 }

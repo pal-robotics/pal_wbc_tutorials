@@ -7,6 +7,7 @@
 #include <ros/ros.h>
 #include <gtest/gtest.h>
 #include <sensor_msgs/JointState.h>
+#include <pal_utils/exception_utils.h>
 
 struct JointData
 {
@@ -197,5 +198,14 @@ int main(int argc, char **argv)
   testing::InitGoogleTest(&argc, argv);
   ros::init(argc, argv, "dynamic_reconfigure_test");
   ros::NodeHandle nh;
+  ros::Time::waitForValid();
+  {
+    boost::shared_ptr<const sensor_msgs::JointState> joint_state_msg;
+    // AS: Wait for the whole body controller to come up. It would be nice to
+    // find a way to avoid hardcoding controller name
+    joint_state_msg = ros::topic::waitForMessage<sensor_msgs::JointState>(
+        "/joint_states", nh, ros::Duration(20.0));
+    PAL_ASSERT_PERSIST(NULL != joint_state_msg, "Controller is not running.");
+  }  
   return RUN_ALL_TESTS();
 }
