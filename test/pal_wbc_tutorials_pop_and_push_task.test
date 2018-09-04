@@ -5,7 +5,7 @@
     <arg name="rviz" value="false"/>
   </include>
 
-  <test test-name="pal_wbc_tutorials_pop_and_push_task" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_pop_and_push_task" time-limit="500.0" retry="1"/>
+  <test test-name="pal_wbc_tutorials_pop_and_push_task" pkg="pal_wbc_tutorials" type="pal_wbc_tutorials_pop_and_push_task" time-limit="200.0" retry="1"/>
 
 </launch>
 
