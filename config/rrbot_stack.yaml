@@ -1,14 +1,14 @@
 type: pal_wbc/WholeBodyControlKinematicController
   
-useFT: False
-useIMU: False
 dt: 0.005
 floating_base: FixedBase
 formulation: velocity
 stack_configuration: rrbot_stack
 solver_type: QpReductionuEqualitiesQuadprogHeapAllocation
 
-use_home_posture: False
+use_home_posture: false
+initialize_bfp_tf: false
+use_odom: false
 
 default_configuration:
   single_rrbot_joint1: 0.2
