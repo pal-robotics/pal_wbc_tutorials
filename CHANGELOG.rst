@@ -2,6 +2,14 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'remove_dt' into 'master'
+  added more parameters
+  See merge request apps/pal_wbc_tutorials!7
+* added more parameters
+* Contributors: Hilario Tome
+
 0.0.3 (2018-09-04)
 ------------------
 * Merge branch 'fix_tests_ns' into 'master'
