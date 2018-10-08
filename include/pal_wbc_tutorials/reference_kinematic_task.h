@@ -50,7 +50,7 @@ public:
 
   bool reconfigureTask();
   bool configureTask(ros::NodeHandle &nh) override;
-  bool configureConstraintsFromProppertyBag(ros::NodeHandle &nh, StackOfTasksKinematic *st,
+  bool configureConstraintsFromPropertyBag(ros::NodeHandle &nh, StackOfTasksKinematic *st,
                                             const property_bag::PropertyBag &properties,
                                             ReferenceKinematicTaskRRBotParam *parameters) override;
   bool start() override;
