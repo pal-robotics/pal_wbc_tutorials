@@ -148,7 +148,7 @@ bool ReferenceKinematicTaskRRBot::start()
  * @param nh - ros node handler
  * @return returns the status of the task setup
  */
-bool ReferenceKinematicTaskRRBot::configureConstraintsFromProppertyBag(
+bool ReferenceKinematicTaskRRBot::configureConstraintsFromPropertyBag(
     ros::NodeHandle &nh, StackOfTasksKinematic *st,
     const property_bag::PropertyBag &properties, ReferenceKinematicTaskRRBotParam *parameters)
 {
