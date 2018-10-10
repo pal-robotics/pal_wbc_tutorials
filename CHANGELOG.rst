@@ -2,8 +2,8 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.5 (2018-10-10)
+------------------
 * Merge branch 'fix-typo' into 'master'
   fix typo
   See merge request apps/pal_wbc_tutorials!8
