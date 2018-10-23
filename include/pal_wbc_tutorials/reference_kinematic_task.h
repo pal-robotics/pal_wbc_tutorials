@@ -72,7 +72,7 @@ private:
 
   pal_robot_tools::PluginlibHelperPtr<pal_robot_tools::VectorReferenceAbstract> reference_loader_;
 
-  std::vector<std::string> registered_variables_;
+  pal_statistics::RegistrationsRAII registered_variables_;
 };
 
 typedef boost::shared_ptr<ReferenceKinematicTaskRRBot> ReferenceKinematicTaskRRBotPtr;
