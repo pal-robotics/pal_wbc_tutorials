@@ -2,8 +2,8 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Forthcoming
------------
+0.0.6 (2018-10-25)
+------------------
 * Merge branch 'migrate-to-statistics' into 'master'
   Migrate to statistics
   See merge request apps/pal_wbc_tutorials!9
