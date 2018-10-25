@@ -2,6 +2,14 @@
 Changelog for package pal_wbc_tutorials
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
+Forthcoming
+-----------
+* Merge branch 'migrate-to-statistics' into 'master'
+  Migrate to statistics
+  See merge request apps/pal_wbc_tutorials!9
+* Migrate to statistics
+* Contributors: Victor Lopez
+
 0.0.5 (2018-10-10)
 ------------------
 * Merge branch 'fix-typo' into 'master'
