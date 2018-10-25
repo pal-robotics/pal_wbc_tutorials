@@ -275,7 +275,6 @@ void ReferenceKinematicTaskRRBot::debug(const Eigen::VectorXd &solution, const r
  */
 bool ReferenceKinematicTaskRRBot::stop()
 {
-  UNREGISTER_VARIABLES(registered_variables_);
   return true;
 }
 
