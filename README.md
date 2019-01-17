@@ -101,9 +101,6 @@ rostest pal_wbc_tutorials pal_wbc_tutorials_topic_test.test
 * **Sai Kishor**
 * **Adrià Roig**
 
-## License
-
-This project is licensed under the Proprietary License.
 
 
 
