@@ -33,10 +33,8 @@ catkin_package(
 ###########
 ## Build ##
 ###########
-include_directories(
-  include
-  ${catkin_INCLUDE_DIRS}
-)
+include_directories(SYSTEM ${catkin_INCLUDE_DIRS})
+include_directories(include)
 
 ## Declare a C++ library
 add_library(${PROJECT_NAME}
