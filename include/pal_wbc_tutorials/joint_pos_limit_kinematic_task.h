@@ -29,20 +29,20 @@ struct JointPositionLimitParams
   virtual ~JointPositionLimitParams()
   {
   }
-  std::vector<std::string> names;
-  std::vector<Bound::bound_t> bound_type;
-  std::vector<double> upper_bound_position;
-  std::vector<double> lower_bound_position;
-  std::vector<double> upper_bound_velocity;
-  std::vector<double> lower_bound_velocity;
-  double vel_limit_gain;
-  bool disable_vel_limit;
+  std::vector<std::string> names_;
+  std::vector<Bound::bound_t> bound_type_;
+  std::vector<double> upper_bound_position_;
+  std::vector<double> lower_bound_position_;
+  std::vector<double> upper_bound_velocity_;
+  std::vector<double> lower_bound_velocity_;
+  double vel_limit_gain_;
+  bool disable_vel_limit_;
 
   /// @todo remove this constructor
   JointPositionLimitParams()
   {
-    vel_limit_gain = 1.0;
-    disable_vel_limit = false;
+    vel_limit_gain_ = 1.0;
+    disable_vel_limit_ = false;
   }
 
   JointPositionLimitParams(std::vector<std::string> names, std::vector<Bound::bound_t> bound_type,
@@ -52,14 +52,14 @@ struct JointPositionLimitParams
                            std::vector<double> lower_bound_velocity,
                            double vel_limit_gain, double disable_vel_limit)
   {
-    this->names = names;
-    this->bound_type = bound_type;
-    this->upper_bound_position = upper_bound_position;
-    this->lower_bound_position = lower_bound_position;
-    this->upper_bound_velocity = upper_bound_velocity;
-    this->lower_bound_velocity = lower_bound_velocity;
-    this->vel_limit_gain = vel_limit_gain;
-    this->disable_vel_limit = disable_vel_limit;
+    this->names_ = names;
+    this->bound_type_ = bound_type;
+    this->upper_bound_position_ = upper_bound_position;
+    this->lower_bound_position_ = lower_bound_position;
+    this->upper_bound_velocity_ = upper_bound_velocity;
+    this->lower_bound_velocity_ = lower_bound_velocity;
+    this->vel_limit_gain_ = vel_limit_gain;
+    this->disable_vel_limit_ = disable_vel_limit;
   }
 };
 /**

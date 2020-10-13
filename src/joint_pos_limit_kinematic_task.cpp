@@ -17,29 +17,29 @@ bool JointPositionLimitTask::reconfigureTask()
   StackOfTasks *st = getStackOfTasks();
   JointPositionLimitParams *parameters = getParameters();
 
-  level_.J_.resize(parameters->names.size(), getStateSize());
+  level_.J_.resize(parameters->names_.size(), getStateSize());
   level_.J_.setZero();
-  level_.bounds_.resize(parameters->names.size());
+  level_.bounds_.resize(parameters->names_.size());
 
   if ((st->getFormulationType() == +formulation_t::velocity))
   {
     if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::XYZ_Quaternion)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
         level_.J_(i, i + 6) = 1.0;
       }
     }
     else if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::XY_Yaw)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
         level_.J_(i, i + 3) = 1.0;
       }
     }
     else if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::FixedBase)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
         level_.J_(i, i) = 1.0;
       }
@@ -81,19 +81,19 @@ bool JointPositionLimitTask::configureTask(ros::NodeHandle &nh)
 
   dd_reconfigure_.reset(
         new ddynamic_reconfigure::DDynamicReconfigure(ros::NodeHandle(nh, "joint_limits")));
-  dd_reconfigure_->RegisterVariable(&parameters->vel_limit_gain, "vel_limit_gain");
-  dd_reconfigure_->RegisterVariable(&parameters->disable_vel_limit, "disable_vel_"
+  dd_reconfigure_->RegisterVariable(&parameters->vel_limit_gain_, "vel_limit_gain");
+  dd_reconfigure_->RegisterVariable(&parameters->disable_vel_limit_, "disable_vel_"
                                                                      "limit_");
-  for (unsigned int i = 0; i < parameters->names.size(); ++i)
+  for (unsigned int i = 0; i < parameters->names_.size(); ++i)
   {
-    dd_reconfigure_->RegisterVariable(&parameters->lower_bound_position[i],
-                                      std::string(parameters->names[i] + "_lower_pos"), -3.14, 3.14);
-    dd_reconfigure_->RegisterVariable(&parameters->upper_bound_position[i],
-                                      std::string(parameters->names[i] + "_upper_pos"), -3.14, 3.14);
-    dd_reconfigure_->RegisterVariable(&parameters->lower_bound_velocity.data()[i],
-                                      parameters->names[i] + "_lower_vel", -1000, 1000);
-    dd_reconfigure_->RegisterVariable(&parameters->upper_bound_velocity.data()[i],
-                                      parameters->names[i] + "_upper_vel", -1000, 1000);
+    dd_reconfigure_->RegisterVariable(&parameters->lower_bound_position_[i],
+                                      std::string(parameters->names_[i] + "_lower_pos"), -3.14, 3.14);
+    dd_reconfigure_->RegisterVariable(& parameters->upper_bound_position_[i],
+                                      std::string(parameters->names_[i] + "_upper_pos"), -3.14, 3.14);
+    dd_reconfigure_->RegisterVariable(&parameters->lower_bound_velocity_.data()[i],
+                                      parameters->names_[i] + "_lower_vel", -1000, 1000);
+    dd_reconfigure_->RegisterVariable(&parameters->upper_bound_velocity_.data()[i],
+                                      parameters->names_[i] + "_upper_vel", -1000, 1000);
   }
   dd_reconfigure_->PublishServicesTopics();
 
@@ -120,31 +120,31 @@ void JointPositionLimitTask::update(const Eigen::VectorXd &Q, const Eigen::Vecto
     double k = 1.0 / st->getDt().toSec();
     if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::XYZ_Quaternion)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
-        double min_pos_boud = k * (parameters->lower_bound_position[i] - Q(i + 6));
-        double max_pos_boud = k * (parameters->upper_bound_position[i] - Q(i + 6));
+        double min_pos_boud = k * (parameters->lower_bound_position_[i] - Q(i + 6));
+        double max_pos_boud = k * (parameters->upper_bound_position_[i] - Q(i + 6));
 
-        if (!parameters->disable_vel_limit)
+        if (!parameters->disable_vel_limit_)
         {
-          if (max_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (max_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
         }
 
@@ -154,31 +154,31 @@ void JointPositionLimitTask::update(const Eigen::VectorXd &Q, const Eigen::Vecto
     }
     else if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::FixedBase)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
-        double min_pos_boud = k * (parameters->lower_bound_position[i] - Q(i));
-        double max_pos_boud = k * (parameters->upper_bound_position[i] - Q(i));
+        double min_pos_boud = k * (parameters->lower_bound_position_[i] - Q(i));
+        double max_pos_boud = k * (parameters->upper_bound_position_[i] - Q(i));
 
-        if (!parameters->disable_vel_limit)
+        if (!parameters->disable_vel_limit_)
         {
-          if (max_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (max_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
         }
 
@@ -188,32 +188,32 @@ void JointPositionLimitTask::update(const Eigen::VectorXd &Q, const Eigen::Vecto
     }
     else if (st->getFloatingBaseType() == +RigidBodyDynamics::FloatingBaseType::XY_Yaw)
     {
-      for (size_t i = 0; i < parameters->names.size(); ++i)
+      for (size_t i = 0; i < parameters->names_.size(); ++i)
       {
-        double min_pos_boud = k * (parameters->lower_bound_position[i] - Q(i + 3));
-        double max_pos_boud = k * (parameters->upper_bound_position[i] - Q(i + 3));
+        double min_pos_boud = k * (parameters->lower_bound_position_[i] - Q(i + 3));
+        double max_pos_boud = k * (parameters->upper_bound_position_[i] - Q(i + 3));
 
 
-        if (!parameters->disable_vel_limit)
+        if (!parameters->disable_vel_limit_)
         {
-          if (max_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (max_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (max_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            max_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            max_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud < -parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud < -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = -parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = -parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
 
-          if (min_pos_boud > parameters->vel_limit_gain * parameters->upper_bound_velocity[i])
+          if (min_pos_boud > parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i])
           {
-            min_pos_boud = parameters->vel_limit_gain * parameters->upper_bound_velocity[i];
+            min_pos_boud = parameters->vel_limit_gain_ * parameters->upper_bound_velocity_[i];
           }
         }
 
@@ -265,17 +265,17 @@ JointPositionLimitKinematicAllJointsMetaTask::JointPositionLimitKinematicAllJoin
   ROS_DEBUG_STREAM("Creating JointPositionLimitKinematicAllJointsMetaTask");
 
   JointPositionLimitParams joint_limit_params;
-  joint_limit_params.vel_limit_gain = vel_limit_gain;
-  joint_limit_params.disable_vel_limit = disable_vel_limit;
+  joint_limit_params.vel_limit_gain_ = vel_limit_gain;
+  joint_limit_params.disable_vel_limit_ = disable_vel_limit;
 
   for (unsigned int i = 0; i < joint_names.size(); ++i)
   {
-    joint_limit_params.names.push_back(joint_names[i]);
-    joint_limit_params.lower_bound_position.push_back(joint_min_position[i]);
-    joint_limit_params.upper_bound_position.push_back(joint_max_position[i]);
-    joint_limit_params.lower_bound_velocity.push_back(joint_min_velocity[i]);
-    joint_limit_params.upper_bound_velocity.push_back(joint_max_velocity[i]);
-    joint_limit_params.bound_type.push_back(Bound::BOUND_DOUBLE);
+    joint_limit_params.names_.push_back(joint_names[i]);
+    joint_limit_params.lower_bound_position_.push_back(joint_min_position[i]);
+    joint_limit_params.upper_bound_position_.push_back(joint_max_position[i]);
+    joint_limit_params.lower_bound_velocity_.push_back(joint_min_velocity[i]);
+    joint_limit_params.upper_bound_velocity_.push_back(joint_max_velocity[i]);
+    joint_limit_params.bound_type_.push_back(Bound::BOUND_DOUBLE);
   }
 
   if (!this->setUp(task_id, joint_limit_params, &st, nh))
