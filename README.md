@@ -8,7 +8,7 @@ In order to compile this package you vill need_
 
 * ROS Kinetic installed on your computer.
 * The pal_wbc package, which is a non Public package distributed by PAL robotics.
-* The [RRBOT](https://github.com/carlosjoserg/rrbot) robot ROS package.
+* The [RRBOT](https://github.com/pal-robotics-forks/rrbot.git) robot ROS package.
 * The [pluginlib](http://wiki.ros.org/pluginlib) ROS package
 
 ### Installing
@@ -100,7 +100,3 @@ rostest pal_wbc_tutorials pal_wbc_tutorials_topic_test.test
 
 * **Sai Kishor**
 * **Adrià Roig**
-
-
-
-
